@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>POI App</title>
+</head>
+<body>
+
+    <div>
+        <h2>All Poi</h2>
+        <ul id="pois" />
+    </div>
+    <div>
+        <h2>Search by ID</h2>
+        <input type="text" id="poiId" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="poi" />
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var uri = 'api/poi';
+
+        $(document).ready(function () {
+            $.getJSON(uri)
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        $('<li>', { text: formatItem(item) }).appendTo($('#pois'));
+                    });
+                });
+        });
+
+        function formatItem(item) {
+            return item.Name + ': $' + item.Price;
+        }
+
+        function find() {
+            var id = $('#poiId').val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    $('#poi').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#poi').text('Error: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
