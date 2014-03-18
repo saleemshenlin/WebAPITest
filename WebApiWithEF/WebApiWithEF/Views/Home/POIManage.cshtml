@@ -1,0 +1,87 @@
+﻿@model WebApiWithEF.Models.POI
+
+@{
+    ViewBag.Title = "POI管理";
+}
+
+<h2>POI管理</h2>
+<p>
+    @Html.ActionLink("创建POI", "POICreate")
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@ 名称
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Address)*@ 地址
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Address)*@ 修改时间
+            </th>
+            <th>
+                编辑
+            </th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: products">
+        <tr>
+            <td><span data-bind="text: $data.Id"></span></td>
+            <td><span data-bind="text: $data.Name"></span></td>
+            <td><span data-bind="text: $data.Address"></span></td>
+            <td><span data-bind="text: $data.Updated"></span></td>
+            <td>
+                <div>
+                    <input type="button" value="更新" data-bind="click: $root.update" />
+                    <input type="button" value="删除" data-bind="click: $root.remove" />
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.0.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ko.applyBindings(new POIsViewModel());
+        })
+        function POIsViewModel() {
+            var self = this;
+            self.products = ko.observableArray();
+
+            var baseUri = '@ViewBag.ApiUrl';
+
+            // New code
+            self.create = function (formElement) {
+                // If the form data is valid, post the serialized form data to the web API.
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(baseUri, $(formElement).serialize(), null, "json")
+                        .done(function (o) {
+                            // Add the new product to the view-model.
+                            self.products.push(o);
+                        });
+                }
+            }
+
+
+            self.update = function (product) {
+                window.location.href = '/Home/POIEdit?id=' + product.Id;
+            }
+
+            self.remove = function (product) {
+                // 更新Status = 0
+                product.Status = 0
+                $.ajax({ type: "PUT", url: baseUri + '/' + product.Id, data: product }).done(function (o) { alert("删除成功！"); location.reload() });
+            }
+
+            $.getJSON(baseUri, self.products);
+        }
+    </script>
+}

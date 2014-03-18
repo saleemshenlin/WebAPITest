@@ -1,0 +1,180 @@
+﻿@model WebApiWithEF.Models.POI
+
+@{
+    ViewBag.Title = "编辑POI";
+}
+
+<h2>编辑POI&nbsp;&nbsp;@Html.ActionLink("返回", "POIManage")</h2>
+
+@Html.ValidationSummary(true)
+<fieldset data-bind="foreach: products">
+    <legend>POI</legend>
+
+    <div class="editor-label">
+        <label>POI类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
+    </div>
+    <div class="editor-field">
+        <input type="text" data-bind="value: $data.C_ID" />
+        @Html.ValidationMessageFor(model => model.C_ID)
+    </div>
+
+    <div class="editor-label">
+        <label>POI名称</label>
+    </div>
+    <div class="editor-field">
+        <input type="text" data-bind="value: $data.Name" />
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div class="editor-label">
+        <label>POI所在区县</label>
+    </div>
+    <div class="editor-field">
+        <input type="text" data-bind="value: $data.D_Name" />
+        @Html.ValidationMessageFor(model => model.D_Name)
+    </div>
+
+    <div class="editor-label">
+        <label>POI地址</label>
+    </div>
+    <div class="editor-field">
+        <input type="text" data-bind="value: $data.Address" />
+        @Html.ValidationMessageFor(model => model.Address)
+    </div>
+
+    <div class="editor-label">
+        <label>POI开放时间</label>
+    </div>
+    <div class="editor-field">
+        <input type="text" data-bind="value: $data.Time" />
+        @Html.ValidationMessageFor(model => model.Time)
+    </div>
+
+    <div class="editor-label">
+        <label>POI电话</label>
+    </div>
+    <div class="editor-field">
+        <input type="text" data-bind="value: $data.Tele" />
+        @Html.ValidationMessageFor(model => model.Tele)
+    </div>
+
+    <div id="ticket-label" class="editor-label">
+        <label>票价</label>
+    </div>
+    <div id="ticket-editor" class="editor-field">
+        <input type="text" data-bind="value: $data.Ticket" />
+        @Html.ValidationMessageFor(model => model.Ticket)
+    </div>
+
+    <div id="type-label" class="editor-label">
+        <label>星级</label>
+    </div>
+    <div id="type-editor" class="editor-field">
+        <input type="text" data-bind="value: $data.Type" />
+        @Html.ValidationMessageFor(model => model.Type)
+    </div>
+
+    <div class="editor-label">
+        <label>经度
+    </div>
+    <div class="editor-label">
+        <input id="lng-editor" class="text-box single-line" type="text" value="" name="Type">
+        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
+    </div>
+    <div class="editor-label">
+        <label>纬度</label>
+    </div>
+    <div class="editor-label">
+        <input id="lat-editor" class="text-box single-line" type="text" value="" name="Type">
+        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
+    </div>
+
+    <div class="editor-label">
+        <label>POI描述</label>
+    </div>
+    <div class="editor-field">
+        <textarea style="width:300px" data-bind="text: $data.Abstract"></textarea>
+        @Html.ValidationMessageFor(model => model.Abstract)
+    </div>
+    <p>
+        <input type="button" value="更新" data-bind="click: $root.update" />
+    </p>
+</fieldset>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.0.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var poi;
+            ko.applyBindings(new POIsViewModel());
+        })
+        function POIsViewModel() {
+            var self = this;
+            self.products = ko.observableArray();
+
+            var baseUri = '@ViewBag.ApiUrl' + '/' + '@ViewBag.PoiId';
+
+            // New code
+            self.create = function (formElement) {
+                // If the form data is valid, post the serialized form data to the web API.
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(baseUri, $(formElement).serialize(), null, "json")
+                        .done(function (o) {
+                            alert("创建成功！");
+                            window.location.href = '/Home/POIManage';
+                        });
+                }
+            }
+
+            self.update = function (product) {
+                var lng = $("#lng-editor").val();
+                var lat = $("#lat-editor").val();
+                var geometry = "POINT(" + lng + " " + lat + ")";
+                product.Geometry = geometry;
+                $.ajax({ type: "PUT", url: baseUri, data: product }).done(function (o) { alert("更新成功！"); window.location.href = '/Home/POIManage'; });
+            }
+
+            self.remove = function (product) {
+                // 更新Status = 0
+                product.Status = 0
+                $.ajax({ type: "PUT", url: baseUri + '/' + product.Id, data: product }).done(function (o) { alert("删除成功！"); });
+            }
+
+            $.getJSON(baseUri, function (data) {
+                self.products.push(data);
+                if (data.Geometry != null) {
+                    var lat = data.Geometry.split(" ")[1].substr(0, data.Geometry.split(" ")[1].length - 1);
+                    $("#lat-editor").val(lat);
+                    var lng = data.Geometry.split(" ")[0].substr(6);
+                    $("#lng-editor").val(lng);
+                }
+                switch (data.C_ID) {
+                    case 1:
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        break;
+                    case 2:
+                        $("#ticket-label label").text("房价");
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        break;
+                    case 3:
+                        $("#ticket-label label").text("人均消费");
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        break;
+                    case 4:
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        $("#ticket-label").hide();
+                        $("#ticket-editor").hide();
+                        break;
+                }
+            });
+        }
+    </script>
+}

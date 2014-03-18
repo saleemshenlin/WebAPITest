@@ -1,0 +1,150 @@
+﻿@model WebApiWithEF.Models.POI
+
+@{
+    ViewBag.Title = "创建POI";
+}
+
+<h2>创建POI&nbsp;&nbsp;@Html.ActionLink("返回", "POIManage")</h2>
+
+@Html.ValidationSummary(true)
+<form id="addProduct" data-bind="submit: create">
+    <fieldset>
+        <legend>POI</legend>
+
+        <div class="editor-label">
+            <label>POI类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.C_ID)
+            @Html.ValidationMessageFor(model => model.C_ID)
+        </div>
+
+        <div class="editor-label">
+            <label>POI名称</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            <label>POI所在区县</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.D_Name)
+            @Html.ValidationMessageFor(model => model.D_Name)
+        </div>
+
+        <div class="editor-label">
+            <label>POI地址</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            <label>POI开放时间</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Time)
+            @Html.ValidationMessageFor(model => model.Time)
+        </div>
+
+        <div class="editor-label">
+            <label>POI电话</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Tele)
+            @Html.ValidationMessageFor(model => model.Tele)
+        </div>
+
+        <div class="editor-label">
+            <label>POI票价</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ticket)
+            @Html.ValidationMessageFor(model => model.Ticket)
+        </div>
+
+        <div class="editor-label">
+            <label>POI星级</label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
+        <div class="editor-label">
+            <label>经度
+        </div>
+        <div class="editor-label">
+            <input id="lng-editor" class="text-box single-line" type="text" value="" name="Type">
+            <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
+        </div>
+        <div class="editor-label">
+            <label>纬度</label>
+        </div>
+        <div class="editor-label">
+            <input id="lat-editor" class="text-box single-line" type="text" value="" name="Type">
+            <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
+        </div>
+        <div class="editor-label">
+            <label>POI描述</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Abstract, new { rows = "4", style = "width:300px" })
+            @Html.ValidationMessageFor(model => model.Abstract)
+        </div>
+        <p>
+            <input type="submit" value="创建" />
+        </p>
+    </fieldset>
+</form>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.0.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ko.applyBindings(new POIsViewModel());
+        })
+        function POIsViewModel() {
+            var self = this;
+            self.products = ko.observableArray();
+
+            var baseUri = '@ViewBag.ApiUrl';
+
+            // New code
+            self.create = function (formElement) {
+                // If the form data is valid, post the serialized form data to the web API.
+                var lng = $("#lng-editor").val();
+                var lat = $("#lat-editor").val();
+                var geometry = "POINT(" + lng + " " + lat + ")";
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(baseUri, $(formElement).serialize() + "&Geometry=" + geometry, null, "json")
+                        .done(function (o) {
+                            alert("创建成功！");
+                            window.location.href = '/Home/POIManage';
+                        });
+                }
+            }
+
+            self.update = function (product) {
+
+                $.ajax({ type: "PUT", url: baseUri + '/' + product.Id, data: product }).done(function (o) { alert("更新成功！"); });
+            }
+
+            self.remove = function (product) {
+                // 更新Status = 0
+                product.Status = 0
+                $.ajax({ type: "PUT", url: baseUri + '/' + product.Id, data: product }).done(function (o) { alert("删除成功！"); });
+            }
+
+            $.getJSON(baseUri, self.products);
+        }
+    </script>
+}

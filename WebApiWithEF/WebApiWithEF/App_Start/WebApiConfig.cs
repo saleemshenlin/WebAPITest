@@ -19,6 +19,13 @@ namespace WebApiWithEF
             // 若要避免处理意外查询或恶意查询，请使用 QueryableAttribute 上的验证设置来验证传入查询。
             // 有关详细信息，请访问 http://go.microsoft.com/fwlink/?LinkId=279712。
             //config.EnableQuerySupport();
+
+            //Configure the Media-Type Formatters
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling =
+                Newtonsoft.Json.PreserveReferencesHandling.Objects;
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

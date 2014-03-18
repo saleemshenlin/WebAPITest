@@ -28,5 +28,32 @@ namespace WebApiWithEF.Controllers
 
             return View();
         }
+        public ActionResult POIManage()
+        {
+            //绑定API的Url
+            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "POI", });
+            ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
+
+            return View();
+        }
+        public ActionResult POICreate()
+        {
+            //绑定API的Url
+            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "POI", });
+            ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
+
+            return View();
+        }
+
+        public ActionResult POIEdit()
+        {
+            //绑定API的Url
+            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "POI", });
+            ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
+           
+            string PoiId = Request.QueryString["id"];
+            ViewBag.PoiId = PoiId;
+            return View();
+        }
     }
 }
