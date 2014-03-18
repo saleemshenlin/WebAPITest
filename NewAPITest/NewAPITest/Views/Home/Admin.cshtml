@@ -1,0 +1,82 @@
+﻿@model NewAPITest.Models.POI
+
+@{
+    ViewBag.Title = "Admin";
+}
+
+<h2>Admin</h2>
+<div class="content">
+    <div class="float-left">
+        <ul id="update-products" data-bind="foreach: pois">
+            <li>
+                <div><div class="item">ID：</div><span data-bind="text: $data.Id"></span></div>
+                <div><div class="item">Name：</div> <input type="text" data-bind="value: $data.Name" /></div>
+                <div><div class="item">Address：</div> <input type="text" data-bind="value: $data.Address" /></div>
+                <div><div class="item">Abstract：</div> <input type="text" data-bind="value: $data.Abstract" /></div>
+                <div>
+                    <input type="button" value="Update" data-bind="click: $root.update" />
+                    <input type="button" value="Delete Item" data-bind="click: $root.remove" />
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="float-right">
+        <h2>Add New POI</h2>
+        <form id="product" data-bind="submit: create">
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Contact</legend>
+                @Html.EditorForModel()
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.0.js")"></script>
+    <script type="text/javascript">
+        // View-model will go here
+        // The view-model is a Javascript object that holds the model data.
+        // The view-model is a code abstraction of the UI.
+        // It has no knowledge of the HTML representation.
+        // Instead, it represents abstract features of the view, such as "a list of items".
+        $(document).ready(function () {
+            ko.applyBindings(new PoisViewModel());
+        })
+
+        function PoisViewModel() {
+            var self = this;
+            self.pois = ko.observableArray();
+            var baseUri = '@ViewBag.ApiUrl';
+
+            self.create = function (formElement) {
+                // If the form data is valid, post the serialized form data to the web API.
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(baseUri, $(formElement).serialize(), null, "json")
+                        .done(function (o) {
+                            // Add the new product to the view-model.
+                            self.pois.push(o);
+                        });
+                }
+            }
+
+            self.update = function (poi) {
+                $.ajax({ type: "PUT", url: baseUri + '/' + poi.Id, data: poi });
+            }
+
+            self.remove = function (poi) {
+                poi.Status = 0
+                // First remove from the server, then from the view-model.
+                $.ajax({ type: "PUT", url: baseUri + '/' + poi.Id, data: poi });
+            }
+
+            $.getJSON(baseUri, self.pois);
+        }
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Threading;
+using System.Web.Mvc;
+using WebMatrix.WebData;
+using NewAPITest.Models;
+using System.Web.Security;
+
+namespace NewAPITest.Filters
+{
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute
+    {
+        private static SimpleMembershipInitializer _initializer;
+        private static object _initializerLock = new object();
+        private static bool _isInitialized;
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // 确保每次启动应用程序时只初始化一次 ASP.NET Simple Membership
+            LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
+        }
+
+        private class SimpleMembershipInitializer
+        {
+            public SimpleMembershipInitializer()
+            {
+                Database.SetInitializer<UsersContext>(null);
+
+                try
+                {
+                    using (var context = new UsersContext())
+                    {
+                        if (!context.Database.Exists())
+                        {
+                            // 创建不包含 Entity Framework 迁移架构的 SimpleMembership 数据库
+                            ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                        }
+                    }
+
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    
+                    /********************
+                    //添加admin角色
+                    //用户名admin
+                    //密码admin
+                    *********************/
+                    const string adminRole = "Administrator";
+                    const string adminName = "admin";
+                    if (!Roles.RoleExists(adminRole))
+                    {
+                        Roles.CreateRole(adminRole);
+                    }
+                    if (!WebSecurity.UserExists(adminName))
+                    {
+                        WebSecurity.CreateUserAndAccount(adminName, "admin");
+                        Roles.AddUserToRole(adminName, adminRole);
+                    }         
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("无法初始化 ASP.NET Simple Membership 数据库。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=256588", ex);
+                }
+            }
+        }
+    }
+}
