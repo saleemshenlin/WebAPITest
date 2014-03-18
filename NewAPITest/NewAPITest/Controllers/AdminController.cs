@@ -21,7 +21,9 @@ namespace NewAPITest.Controllers
         // GET api/Admin
         public IEnumerable<POI> GetPOIs()
         {
-            return db.POIs.AsEnumerable();
+            IEnumerable<POI> pois = db.POIs.SqlQuery("select * from POIs where Status = 1").AsEnumerable();
+            //pois = pois.Where(c => c.Id > 0);
+            return pois;
         }
 
         // GET api/Admin/5
