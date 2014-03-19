@@ -68,23 +68,27 @@ namespace WebApiWithEF.Controllers
         [HttpPost]
         public JsonResult Upload(HttpPostedFileBase upImg)
         {
-            string fileName = System.IO.Path.GetFileName(upImg.FileName.Substring(0, upImg.FileName.Length-4));
+            string fileName = System.IO.Path.GetFileName(upImg.FileName.Substring(0, upImg.FileName.Length - 4));
             string newName = fileName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".jpg";
             string newMiniName = fileName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_mini.jpg";
             string filePhysicalPath = Server.MapPath("~/Update/" + newName);
             string fileMiniPath = Server.MapPath("~/Update/" + newMiniName);
             string pic = "", error = "";
             Image oImg = Image.FromStream(upImg.InputStream);
+            int sourceWidth = oImg.Width;
+            int sourceHeight = oImg.Height;
+            float nPercentH = ((float)540 / (float)sourceHeight);
+            int destX = (int)( (sourceWidth * nPercentH) - 720);
             Bitmap nImg = new Bitmap(720, 540);
             Graphics graphics = Graphics.FromImage(nImg);
             graphics.Clear(Color.White);
             graphics.InterpolationMode = InterpolationMode.High;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.CompositingQuality = CompositingQuality.HighQuality;
-            graphics.DrawImage(oImg, new Rectangle(0, 0, 720, 540));
+            graphics.DrawImage(oImg, new Rectangle(0, 0, 720, 540), new Rectangle(destX, 0, sourceHeight * 4 / 3, sourceHeight), GraphicsUnit.Pixel);
             graphics.Dispose();
             oImg.Dispose();
-            Image miniImg = ResetImageSize(oImg, 200, 150);
+            Bitmap miniImg = new Bitmap(nImg, 200, 150);
             try
             {
                 nImg.Save(filePhysicalPath);
@@ -92,7 +96,7 @@ namespace WebApiWithEF.Controllers
                 miniImg.Save(fileMiniPath);
                 miniImg.Dispose();
                 //upImg.SaveAs(filePhysicalPath);
-                pic = "/Update/" + fileMiniPath;
+                pic = "/Update/" + newMiniName;
             }
             catch (Exception ex)
             {
@@ -104,87 +108,5 @@ namespace WebApiWithEF.Controllers
                 error = error
             });
         }
-
-        /// <summary>
-        /// 一个空回调方法,ResetImageSize()方法调用
-        /// </summary>
-        /// <returns></returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static bool ImageCallback()
-        {
-            return false;
-        }
-
-
-        /// <summary>
-        /// 返回此 Image 对象的缩略图  
-        /// </summary>
-        /// <param name="AtImage">要缩放的图象对象</param>
-        /// <param name="ImageWidth">指定新的图象宽度</param>
-        /// <param name="ImageHeight">指定新的图象高度</param>
-        /// <returns></returns>
-        public static Image ResetImageSize(Image AtImage, int ImageWidth, int ImageHeight)
-        {
-            if (AtImage == null) return null;
-            Image.GetThumbnailImageAbort MyCallback = new Image.GetThumbnailImageAbort(ImageCallback);
-            Image Img = null;
-            Img = AtImage.GetThumbnailImage(ImageWidth, ImageHeight, MyCallback, IntPtr.Zero);
-            return Img;
-        }
-
-        /// <summary>
-        /// 验证C_ID
-        /// </summary>
-        //public class PriceAttribute : ValidationAttribute
-        //{
-        //    public double MinPrice { get; set; }
-
-        //    public override bool IsValid(object value)
-        //    {
-        //        if (value == null)
-        //        {
-        //            return true;
-        //        }
-        //        var price = (double)value;
-        //        if (price < MinPrice)
-        //        {
-        //            return false;
-        //        }
-        //        double cents = price - Math.Truncate(price);
-        //        if (cents < 0.99 || cents >= 0.995)
-        //        {
-        //            return false;
-        //        }
-
-        //        return true;
-        //    }
-
-        //}
-
-        //public class PriceValidator : DataAnnotationsModelValidator<PriceAttribute>
-        //{
-        //    double _minPrice;
-        //    string _message;
-
-        //    public PriceValidator(ModelMetadata metadata, ControllerContext context
-        //      , PriceAttribute attribute)
-        //        : base(metadata, context, attribute)
-        //    {
-        //        _minPrice = attribute.MinPrice;
-        //        _message = attribute.ErrorMessage;
-        //    }
-
-        //    public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
-        //    {
-        //        var rule = new ModelClientValidationRule
-        //        {
-        //            ErrorMessage = _message,
-        //            ValidationType = "price"
-        //        };
-        //        rule.ValidationParameters.Add("min", _minPrice);
-
-        //        return new[] { rule };
-        //    }
-        //}
     }
 }

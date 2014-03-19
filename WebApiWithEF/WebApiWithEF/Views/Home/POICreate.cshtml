@@ -120,7 +120,7 @@
 <div style="float:left;">
     <input type="button" id="btn_show" value="上传图片" /><br />
     <form id="form_upload" style="padding:20px; display:none;" action="Upload" method="post" enctype="multipart/form-data">
-        <input name="upImg" style="width:350px;height:25px;" size="38" type="file" /><input type="submit" value="上传" />
+        <input id="upImg" name="upImg" style="width:350px;height:25px;" size="38" type="file" /><input type="submit" value="上传" />
     </form>
 </div>
 <img alt="" style="display:none;" id="result" src="" />
@@ -186,6 +186,28 @@
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         console.log(textStatus);
                         console.log(errorThrown);
+                    },
+                    beforeSubmit: function () {
+                        var upImg = $("#upImg");
+                        var upImg_url = upImg.val().toLowerCase();
+                        var upImg_ext = upImg_url.substring(upImg_url.length - 3, upImg_url.length);
+                        if (upImg_ext != "jpg") {
+                            alert("请选择JPG格式的文件!");
+                            return false;
+                        }
+                        var ErrMsgErrMsg = "";//错误信息
+                        var img = new Image();
+                        img.src = upImg.value;
+                        if (img.width < 720) {
+                            ErrMsgErrMsg = "\n\n图片宽度超过限制 请上传宽度大于" + 720 + "px的文件，当前图片宽度为" + img.width + "px";
+                            alert(ErrMsgErrMsg);
+                            return false;
+                        }
+                        if (img.height < 540) {
+                            ErrMsgErrMsg = "\n\n图片高度超过限制 请上传高度大于" + 540 + "px的文件，当前图片高度为" + img.height + "px";
+                            alert(ErrMsgErrMsg);
+                            return false;
+                        }
                     }
                 };
 
