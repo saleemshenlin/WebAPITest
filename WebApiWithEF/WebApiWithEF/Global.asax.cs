@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+
 namespace WebApiWithEF
 {
     // 注意: 有关启用 IIS6 或 IIS7 经典模式的说明，
@@ -23,6 +24,9 @@ namespace WebApiWithEF
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            //
+            //DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(WebApiWithEF.Controllers.HomeController.PriceAttribute), typeof(WebApiWithEF.Controllers.HomeController.PriceValidator));
         }
     }
 }

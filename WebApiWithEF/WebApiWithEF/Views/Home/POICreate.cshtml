@@ -12,15 +12,15 @@
         <legend>POI</legend>
 
         <div class="editor-label">
-            <label>POI类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
+            <label>类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
         </div>
-        <div class="editor-field">
+        <div id="c_id-editor" class="editor-field">
             @Html.EditorFor(model => model.C_ID)
             @Html.ValidationMessageFor(model => model.C_ID)
         </div>
 
         <div class="editor-label">
-            <label>POI名称</label>
+            <label>名称</label>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
@@ -28,7 +28,7 @@
         </div>
 
         <div class="editor-label">
-            <label>POI所在区县</label>
+            <label>所在区县</label>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.D_Name)
@@ -36,7 +36,7 @@
         </div>
 
         <div class="editor-label">
-            <label>POI地址</label>
+            <label>地址</label>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Address)
@@ -44,7 +44,7 @@
         </div>
 
         <div class="editor-label">
-            <label>POI开放时间</label>
+            <label>开放时间</label>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Time)
@@ -52,25 +52,25 @@
         </div>
 
         <div class="editor-label">
-            <label>POI电话</label>
+            <label>电话</label>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Tele)
             @Html.ValidationMessageFor(model => model.Tele)
         </div>
 
-        <div class="editor-label">
-            <label>POI票价</label>
+        <div id="ticket-label" class="editor-label">
+            <label>票价</label>
         </div>
-        <div class="editor-field">
+        <div id="ticket-editor" class="editor-field">
             @Html.EditorFor(model => model.Ticket)
             @Html.ValidationMessageFor(model => model.Ticket)
         </div>
 
-        <div class="editor-label">
-            <label>POI星级</label>
+        <div id="type-label" class="editor-label">
+            <label>星级</label>
         </div>
-        <div class="editor-field">
+        <div id="type-editor" class="editor-field">
             @Html.EditorFor(model => model.Type)
             @Html.ValidationMessageFor(model => model.Type)
         </div>
@@ -110,6 +110,42 @@
     <script type="text/javascript">
         $(document).ready(function () {
             ko.applyBindings(new POIsViewModel());
+            var c_id_editor = $("#c_id-editor input");
+            c_id_editor.val(1);
+            $("#type-label").hide();
+            $("#type-editor").hide();
+            c_id_editor.change(function () {
+                var value = parseInt(c_id_editor.val());
+                switch (value) {
+                    case 1:
+                        $("#ticket-label label").text("门票");
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        $("#ticket-label").show();
+                        $("#ticket-editor").show();
+                        break;
+                    case 2:
+                        $("#ticket-label label").text("房价");
+                        $("#type-label").show();
+                        $("#type-editor").show();
+                        $("#ticket-label").show();
+                        $("#ticket-editor").show();
+                        break;
+                    case 3:
+                        $("#ticket-label label").text("人均消费");
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        $("#ticket-label").show();
+                        $("#ticket-editor").show();
+                        break;
+                    case 4:
+                        $("#type-label").hide();
+                        $("#type-editor").hide();
+                        $("#ticket-label").hide();
+                        $("#ticket-editor").hide();
+                        break;
+                }
+            });
         })
         function POIsViewModel() {
             var self = this;

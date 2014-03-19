@@ -11,15 +11,15 @@
     <legend>POI</legend>
 
     <div class="editor-label">
-        <label>POI类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
+        <label>类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
     </div>
-    <div class="editor-field">
+    <div id="c_id-editor" class="editor-field">
         <input type="text" data-bind="value: $data.C_ID" />
         @Html.ValidationMessageFor(model => model.C_ID)
     </div>
 
     <div class="editor-label">
-        <label>POI名称</label>
+        <label>名称</label>
     </div>
     <div class="editor-field">
         <input type="text" data-bind="value: $data.Name" />
@@ -27,7 +27,7 @@
     </div>
 
     <div class="editor-label">
-        <label>POI所在区县</label>
+        <label>所在区县</label>
     </div>
     <div class="editor-field">
         <input type="text" data-bind="value: $data.D_Name" />
@@ -35,7 +35,7 @@
     </div>
 
     <div class="editor-label">
-        <label>POI地址</label>
+        <label>地址</label>
     </div>
     <div class="editor-field">
         <input type="text" data-bind="value: $data.Address" />
@@ -43,7 +43,7 @@
     </div>
 
     <div class="editor-label">
-        <label>POI开放时间</label>
+        <label>开放时间</label>
     </div>
     <div class="editor-field">
         <input type="text" data-bind="value: $data.Time" />
@@ -51,7 +51,7 @@
     </div>
 
     <div class="editor-label">
-        <label>POI电话</label>
+        <label>电话</label>
     </div>
     <div class="editor-field">
         <input type="text" data-bind="value: $data.Tele" />
@@ -75,7 +75,7 @@
     </div>
 
     <div class="editor-label">
-        <label>经度
+        <label>经度</label>
     </div>
     <div class="editor-label">
         <input id="lng-editor" class="text-box single-line" type="text" value="" name="Type">
@@ -90,7 +90,7 @@
     </div>
 
     <div class="editor-label">
-        <label>POI描述</label>
+        <label>描述</label>
     </div>
     <div class="editor-field">
         <textarea style="width:300px" data-bind="text: $data.Abstract"></textarea>
@@ -159,8 +159,8 @@
                         break;
                     case 2:
                         $("#ticket-label label").text("房价");
-                        $("#type-label").hide();
-                        $("#type-editor").hide();
+                        $("#type-label").show();
+                        $("#type-editor").show();
                         break;
                     case 3:
                         $("#ticket-label label").text("人均消费");
