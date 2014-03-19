@@ -28,7 +28,7 @@
             </th>
         </tr>
     </thead>
-    <tbody data-bind="foreach: products">
+    <tbody id="poidata" data-bind="foreach: products">
         <tr>
             <td><span data-bind="text: $data.Id"></span></td>
             <td><span data-bind="text: $data.Name"></span></td>
@@ -38,26 +38,35 @@
                 <div>
                     <input type="button" value="更新" data-bind="click: $root.update" />
                     <input type="button" value="删除" data-bind="click: $root.remove" />
+
                 </div>
             </td>
         </tr>
     </tbody>
 </table>
+<div class="pageindex" style="float: right; margin: 10px 45px 0 0;">
+    <label id="pages" style="margin: 15px;float:left">共2页</label>
+    <label id="pageindex" style="margin: 15px;float:left">第1页</label>
+    <input id="pagepre" type="button" value="最前页" data-bind="click: $root.pageminus" />
+    <input id="pagenext" type="button" value="后一页" data-bind="click: $root.pageadd" />
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.0.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            ko.applyBindings(new POIsViewModel());
+            var poisvm = new POIsViewModel();
+            var poisdata;
+            var pages;
+            var pageindex;
+            ko.applyBindings(poisvm);
         })
         function POIsViewModel() {
             var self = this;
             self.products = ko.observableArray();
-
             var baseUri = '@ViewBag.ApiUrl';
-
-            // New code
+            var pageitems = 20;//每页条目数
             self.create = function (formElement) {
                 // If the form data is valid, post the serialized form data to the web API.
                 $(formElement).validate();
@@ -81,7 +90,78 @@
                 $.ajax({ type: "PUT", url: baseUri + '/' + product.Id, data: product }).done(function (o) { alert("删除成功！"); location.reload() });
             }
 
-            $.getJSON(baseUri, self.products);
+            self.pageadd = function () {
+                if (pageindex + 1 != pages) {
+                    var itemstart = pageindex * pageitems;
+                    var itemend = itemstart + pageitems;
+                    self.products.removeAll();
+                    for (i = itemstart ; i < itemend; i++) {
+                        self.products.push(poisdata[i]);
+                    }
+                    pageindex = pageindex + 1;
+                } else {
+                    var itemstart = pageindex * pageitems;
+                    self.products.removeAll();
+                    for (i = itemstart ; i < poisdata.length ; i++) {
+                        self.products.push(poisdata[i]);
+                    }
+                    pageindex = pageindex + 1;
+                    $("#pagenext").attr("value", "最后页");
+                    $("#pagenext").attr("disabled", "disabled");
+                }
+                $("#pageindex").text("第" + pageindex + "页");
+                $("#pagepre").attr("value", "前一页");
+                $("#pagepre").attr("disabled", false);
+            }
+
+            self.pageminus = function () {
+                if (pageindex - 1 != 1) {
+                    var itemstart = (pageindex - 2) * pageitems;
+                    var itemend = itemstart + pageitems;
+                    self.products.removeAll();
+                    for (i = itemstart ; i < itemend; i++) {
+                        self.products.push(poisdata[i]);
+                    }
+                    pageindex = pageindex - 1;
+                } else {
+                    self.products.removeAll();
+                    for (i = 0 ; i < pageitems ; i++) {
+                        self.products.push(poisdata[i]);
+                    }
+                    pageindex = pageindex - 1;
+                    $("#pagepre").attr("value", "最前页");
+                    $("#pagepre").attr("disabled", "disabled");
+                }
+                $("#pageindex").text("第" + pageindex + "页");
+                $("#pagenext").attr("value", "后一页");
+                $("#pagenext").attr("disabled", false);
+            }
+
+            $.getJSON(baseUri, function (data) {
+                poisdata = data;
+                pages = Math.ceil(poisdata.length / pageitems);
+                allpages = "共" + pages + "页";
+                $("#pages").text(allpages);
+                pageindex = 1;
+                $.each(data, function (i) {
+                    self.products.push(data[i]);
+                    if (pageitems < data.length) {
+                        if (i == pageitems - 1)
+                            return false;
+                    }
+                });
+                if (pages == 1) {
+                    $("#pagenext").attr("value", "最后页");
+                    $("#pagenext").attr("disabled", "disabled");
+                    $("#pagepre").attr("value", "最前页");
+                    $("#pagepre").attr("disabled", "disabled");
+                }
+                else {
+                    $("#pagepre").attr("disabled", "disabled");
+                }
+            });
         }
+
+
     </script>
 }

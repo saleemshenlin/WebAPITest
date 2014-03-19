@@ -12,6 +12,7 @@ namespace WebApiWithEF.Models
         [ScaffoldColumn(false)]
         public int Id { get; set; }
         [DisplayName("POI类型")]
+        [RegularExpression(@"([1-4])", ErrorMessage = "必须为数字1-4")]
         public int C_ID { get; set; }
         public string Name { get; set; }
         public string D_Name { get; set; }

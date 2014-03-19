@@ -18,6 +18,7 @@ namespace WebApiWithEF.Controllers
         private POIContext db = new POIContext();
 
         // GET api/POI
+        // .Skip((1 - 1) * 5).Take(5) 分页
         public IEnumerable<POI> GetPOIs()
         {
             IEnumerable<POI> pois = db.POIs.SqlQuery("select * from POI where Status = 1 order by Updated desc").AsEnumerable();
