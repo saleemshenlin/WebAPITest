@@ -77,30 +77,37 @@ namespace WebApiWithEF.Controllers
             Image oImg = Image.FromStream(upImg.InputStream);
             int sourceWidth = oImg.Width;
             int sourceHeight = oImg.Height;
-            float nPercentH = ((float)540 / (float)sourceHeight);
-            int destX = (int)( (sourceWidth * nPercentH) - 720);
-            Bitmap nImg = new Bitmap(720, 540);
-            Graphics graphics = Graphics.FromImage(nImg);
-            graphics.Clear(Color.White);
-            graphics.InterpolationMode = InterpolationMode.High;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.CompositingQuality = CompositingQuality.HighQuality;
-            graphics.DrawImage(oImg, new Rectangle(0, 0, 720, 540), new Rectangle(destX, 0, sourceHeight * 4 / 3, sourceHeight), GraphicsUnit.Pixel);
-            graphics.Dispose();
-            oImg.Dispose();
-            Bitmap miniImg = new Bitmap(nImg, 200, 150);
-            try
+            if (sourceHeight < 540 || sourceWidth < 720)
             {
-                nImg.Save(filePhysicalPath);
-                nImg.Dispose();
-                miniImg.Save(fileMiniPath);
-                miniImg.Dispose();
-                //upImg.SaveAs(filePhysicalPath);
-                pic = "/Update/" + newMiniName;
+                error = "上传图片宽度大于720px，并且高度大于540px！";
             }
-            catch (Exception ex)
+            else
             {
-                error = ex.Message;
+                float nPercentH = ((float)540 / (float)sourceHeight);
+                int destX = (int)((sourceWidth * nPercentH) - 720);
+                Bitmap nImg = new Bitmap(720, 540);
+                Graphics graphics = Graphics.FromImage(nImg);
+                graphics.Clear(Color.White);
+                graphics.InterpolationMode = InterpolationMode.High;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.DrawImage(oImg, new Rectangle(0, 0, 720, 540), new Rectangle(destX, 0, sourceHeight * 4 / 3, sourceHeight), GraphicsUnit.Pixel);
+                graphics.Dispose();
+                oImg.Dispose();
+                Bitmap miniImg = new Bitmap(nImg, 200, 150);
+                try
+                {
+                    nImg.Save(filePhysicalPath);
+                    nImg.Dispose();
+                    miniImg.Save(fileMiniPath);
+                    miniImg.Dispose();
+                    //upImg.SaveAs(filePhysicalPath);
+                    pic = "/Update/" + newMiniName;
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                }
             }
             return Json(new
             {

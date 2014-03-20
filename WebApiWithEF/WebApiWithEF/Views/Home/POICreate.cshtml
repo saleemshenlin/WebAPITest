@@ -195,19 +195,6 @@
                             alert("请选择JPG格式的文件!");
                             return false;
                         }
-                        var ErrMsgErrMsg = "";//错误信息
-                        var img = new Image();
-                        img.src = upImg.value;
-                        if (img.width < 720) {
-                            ErrMsgErrMsg = "\n\n图片宽度超过限制 请上传宽度大于" + 720 + "px的文件，当前图片宽度为" + img.width + "px";
-                            alert(ErrMsgErrMsg);
-                            return false;
-                        }
-                        if (img.height < 540) {
-                            ErrMsgErrMsg = "\n\n图片高度超过限制 请上传高度大于" + 540 + "px的文件，当前图片高度为" + img.height + "px";
-                            alert(ErrMsgErrMsg);
-                            return false;
-                        }
                     }
                 };
 
@@ -223,12 +210,16 @@
             // New code
             self.create = function (formElement) {
                 // If the form data is valid, post the serialized form data to the web API.
+                // lng and lat to WKT save in Geometry
                 var lng = $("#lng-editor").val();
                 var lat = $("#lat-editor").val();
                 var geometry = "POINT(" + lng + " " + lat + ")";
+                // update imgurl
+                var imgfullurl = $("#result").attr("src");
+                var imgurl = imgfullurl.substring(0, imgfullurl.length - 9);
                 $(formElement).validate();
                 if ($(formElement).valid()) {
-                    $.post(baseUri, $(formElement).serialize() + "&Geometry=" + geometry, null, "json")
+                    $.post(baseUri, $(formElement).serialize() + "&Geometry=" + geometry+"&ImgUrl="+imgurl, null, "json")
                         .done(function (o) {
                             alert("创建成功！");
                             window.location.href = '/Home/POIManage';

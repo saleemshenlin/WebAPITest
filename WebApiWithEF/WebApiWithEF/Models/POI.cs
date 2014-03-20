@@ -24,6 +24,7 @@ namespace WebApiWithEF.Models
         public string Type { get; set; }
         public string Geometry { get; set; }
         public int Status { get; set; }
+        public string ImgUrl { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
     }

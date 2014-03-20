@@ -3,113 +3,166 @@
 @{
     ViewBag.Title = "编辑POI";
 }
-
+@section Styles{
+    <style type="text/css">
+        form {
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 400px;
+            background: #EEE;
+        }
+    </style>
+}
 <h2>编辑POI&nbsp;&nbsp;@Html.ActionLink("返回", "POIManage")</h2>
 
 @Html.ValidationSummary(true)
-<fieldset data-bind="foreach: products">
-    <legend>POI</legend>
+<div style="width: 450px; float: left; ">
+    <form>
+        <fieldset data-bind="foreach: products">
+            <legend>POI</legend>
 
-    <div class="editor-label">
-        <label>类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
-    </div>
-    <div id="c_id-editor" class="editor-field">
-        <input type="text" data-bind="value: $data.C_ID" />
-        @Html.ValidationMessageFor(model => model.C_ID)
-    </div>
+            <div class="editor-label">
+                <label>类型(1:景区 2:住宿 3:餐饮 4:购物)</label>
+            </div>
+            <div id="c_id-editor" class="editor-field">
+                <input type="text" data-bind="value: $data.C_ID" />
+                @Html.ValidationMessageFor(model => model.C_ID)
+            </div>
 
-    <div class="editor-label">
-        <label>名称</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" data-bind="value: $data.Name" />
-        @Html.ValidationMessageFor(model => model.Name)
-    </div>
+            <div class="editor-label">
+                <label>名称</label>
+            </div>
+            <div class="editor-field">
+                <input type="text" data-bind="value: $data.Name" />
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
 
-    <div class="editor-label">
-        <label>所在区县</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" data-bind="value: $data.D_Name" />
-        @Html.ValidationMessageFor(model => model.D_Name)
-    </div>
+            <div class="editor-label">
+                <label>所在区县</label>
+            </div>
+            <div class="editor-field">
+                <input type="text" data-bind="value: $data.D_Name" />
+                @Html.ValidationMessageFor(model => model.D_Name)
+            </div>
 
-    <div class="editor-label">
-        <label>地址</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" data-bind="value: $data.Address" />
-        @Html.ValidationMessageFor(model => model.Address)
-    </div>
+            <div class="editor-label">
+                <label>地址</label>
+            </div>
+            <div class="editor-field">
+                <input type="text" data-bind="value: $data.Address" />
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
 
-    <div class="editor-label">
-        <label>开放时间</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" data-bind="value: $data.Time" />
-        @Html.ValidationMessageFor(model => model.Time)
-    </div>
+            <div class="editor-label">
+                <label>开放时间</label>
+            </div>
+            <div class="editor-field">
+                <input type="text" data-bind="value: $data.Time" />
+                @Html.ValidationMessageFor(model => model.Time)
+            </div>
 
-    <div class="editor-label">
-        <label>电话</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" data-bind="value: $data.Tele" />
-        @Html.ValidationMessageFor(model => model.Tele)
-    </div>
+            <div class="editor-label">
+                <label>电话</label>
+            </div>
+            <div class="editor-field">
+                <input type="text" data-bind="value: $data.Tele" />
+                @Html.ValidationMessageFor(model => model.Tele)
+            </div>
 
-    <div id="ticket-label" class="editor-label">
-        <label>票价</label>
-    </div>
-    <div id="ticket-editor" class="editor-field">
-        <input type="text" data-bind="value: $data.Ticket" />
-        @Html.ValidationMessageFor(model => model.Ticket)
-    </div>
+            <div id="ticket-label" class="editor-label">
+                <label>票价</label>
+            </div>
+            <div id="ticket-editor" class="editor-field">
+                <input type="text" data-bind="value: $data.Ticket" />
+                @Html.ValidationMessageFor(model => model.Ticket)
+            </div>
 
-    <div id="type-label" class="editor-label">
-        <label>星级</label>
-    </div>
-    <div id="type-editor" class="editor-field">
-        <input type="text" data-bind="value: $data.Type" />
-        @Html.ValidationMessageFor(model => model.Type)
-    </div>
+            <div id="type-label" class="editor-label">
+                <label>星级</label>
+            </div>
+            <div id="type-editor" class="editor-field">
+                <input type="text" data-bind="value: $data.Type" />
+                @Html.ValidationMessageFor(model => model.Type)
+            </div>
 
-    <div class="editor-label">
-        <label>经度</label>
-    </div>
-    <div class="editor-label">
-        <input id="lng-editor" class="text-box single-line" type="text" value="" name="Type">
-        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
-    </div>
-    <div class="editor-label">
-        <label>纬度</label>
-    </div>
-    <div class="editor-label">
-        <input id="lat-editor" class="text-box single-line" type="text" value="" name="Type">
-        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
-    </div>
+            <div class="editor-label">
+                <label>经度</label>
+            </div>
+            <div class="editor-label">
+                <input id="lng-editor" class="text-box single-line" type="text" value="" name="Type">
+                <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
+            </div>
+            <div class="editor-label">
+                <label>纬度</label>
+            </div>
+            <div class="editor-label">
+                <input id="lat-editor" class="text-box single-line" type="text" value="" name="Type">
+                <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Type"></span>
+            </div>
 
-    <div class="editor-label">
-        <label>描述</label>
-    </div>
-    <div class="editor-field">
-        <textarea style="width:300px" data-bind="text: $data.Abstract"></textarea>
-        @Html.ValidationMessageFor(model => model.Abstract)
-    </div>
-    <p>
-        <input type="button" value="更新" data-bind="click: $root.update" />
-    </p>
-</fieldset>
-
+            <div class="editor-label">
+                <label>描述</label>
+            </div>
+            <div class="editor-field">
+                <textarea style="width:300px" data-bind="text: $data.Abstract"></textarea>
+                @Html.ValidationMessageFor(model => model.Abstract)
+            </div>
+            <p>
+                <input type="button" value="更新" data-bind="click: $root.update" />
+            </p>
+        </fieldset>
+    </form>
+</div>
+<div style="float:left;">
+    <input type="button" id="btn_show" value="修改图片" /><br />
+    <form id="form_upload" style="padding:20px; display:none;" action="Upload" method="post" enctype="multipart/form-data">
+        <input id="upImg" name="upImg" style="width:350px;height:25px;" size="38" type="file" /><input type="submit" value="上传" />
+    </form>
+</div>
+<img alt="" style="display:none;" id="result" src="" />
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.0.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var poi;
             ko.applyBindings(new POIsViewModel());
+            //上传图片
+            $("#btn_show").bind("click", function () {
+                $("#form_upload").show();
+                var options = {
+                    success: function (responseText, statusText, xhr, $form) {
+                        var picPath = responseText.pic;
+                        if (picPath == "") {
+                            alert(responseText.error);
+                        }
+                        else {
+                            $("#form_upload").hide();
+                            $("#result").attr("src", picPath).show();
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    },
+                    beforeSubmit: function () {
+                        var upImg = $("#upImg");
+                        var upImg_url = upImg.val().toLowerCase();
+                        var upImg_ext = upImg_url.substring(upImg_url.length - 3, upImg_url.length);
+                        if (upImg_ext != "jpg") {
+                            alert("请选择JPG格式的文件!");
+                            return false;
+                        }
+                    }
+                };
+
+                $("#form_upload").ajaxForm(options);
+            });
         })
         function POIsViewModel() {
             var self = this;
@@ -134,7 +187,10 @@
                 var lng = $("#lng-editor").val();
                 var lat = $("#lat-editor").val();
                 var geometry = "POINT(" + lng + " " + lat + ")";
+                var imgfullurl = $("#result").attr("src");
+                var imgurl = imgfullurl.substring(0, imgfullurl.length - 9);
                 product.Geometry = geometry;
+                product.ImgUrl = imgurl;
                 $.ajax({ type: "PUT", url: baseUri, data: product }).done(function (o) { alert("更新成功！"); window.location.href = '/Home/POIManage'; });
             }
 
@@ -151,6 +207,10 @@
                     $("#lat-editor").val(lat);
                     var lng = data.Geometry.split(" ")[0].substr(6);
                     $("#lng-editor").val(lng);
+                }
+                if (data.ImgUrl != null) {
+                    $("#result").attr("src", data.ImgUrl + "_mini.jpg");
+                    $("#result").attr("style", "");
                 }
                 switch (data.C_ID) {
                     case 1:
@@ -176,5 +236,7 @@
                 }
             });
         }
+
+
     </script>
 }
