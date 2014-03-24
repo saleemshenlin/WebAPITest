@@ -19,9 +19,18 @@ namespace WebApiWithEF.Controllers
 
         // GET api/POI
         // .Skip((1 - 1) * 5).Take(5) 分页
-        public IEnumerable<POI> GetPOIs()
+        public IEnumerable<POI> GetPOI()
         {
             IEnumerable<POI> pois = db.POIs.SqlQuery("select * from POI where Status = 1 order by Updated desc").AsEnumerable();
+            return pois;
+        }
+
+        // GET api/POI?type=type
+        // 根据类型获取pois
+        //[Route("api/poitype/{id}")]
+        public IEnumerable<POI> GetPOIByType(Int32 type)
+        {
+            IEnumerable<POI> pois = db.POIs.SqlQuery("select * from POI where Status = 1 and C_ID = " + type + " order by Updated desc").AsEnumerable();
             return pois;
         }
 
@@ -49,7 +58,7 @@ namespace WebApiWithEF.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-            
+
             poi.Updated = DateTime.Now;
             db.Entry(poi).State = EntityState.Modified;
 
