@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData.Builder;
+using WebApiWithEF.Models;
 
 namespace WebApiWithEF
 {
@@ -17,6 +19,11 @@ namespace WebApiWithEF
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //OData 方法
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<POI>("POIOData");
+            config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
 
             // 取消注释下面的代码行可对具有 IQueryable 或 IQueryable<T> 返回类型的操作启用查询支持。
             // 若要避免处理意外查询或恶意查询，请使用 QueryableAttribute 上的验证设置来验证传入查询。
