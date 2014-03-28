@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -37,6 +39,8 @@ namespace WebApiWithEF.Controllers
         {
             //绑定API的Url
             string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "POI", });
+            //oData Url
+            string odataApiUri = "/odata/POIOData";
             ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
 
             return View();
@@ -68,9 +72,9 @@ namespace WebApiWithEF.Controllers
         [HttpPost]
         public JsonResult Upload(HttpPostedFileBase upImg)
         {
-            string fileName = System.IO.Path.GetFileName(upImg.FileName.Substring(0, upImg.FileName.Length - 4));
-            string newName = fileName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".jpg";
-            string newMiniName = fileName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_mini.jpg";
+            string fileName = MD5Create(System.IO.Path.GetFileName(upImg.FileName.Substring(0, upImg.FileName.Length - 4)) + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            string newName = fileName + ".jpg";
+            string newMiniName = fileName + "_mini.jpg";
             string filePhysicalPath = Server.MapPath("~/Update/" + newName);
             string fileMiniPath = Server.MapPath("~/Update/" + newMiniName);
             string pic = "", error = "";
@@ -114,6 +118,20 @@ namespace WebApiWithEF.Controllers
                 pic = pic,
                 error = error
             });
+        }
+
+        private string MD5Create(string STR) //STR为待加密的string
+        {
+            string pwd = "";
+            //pwd为加密结果
+            MD5 md5 = MD5.Create();
+            byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(STR));
+            //这里的UTF8是编码方式，你可以采用你喜欢的方式进行，比如UNcode等等
+            for (int i = 0; i < s.Length; i++)
+            {
+                pwd = pwd + s[i].ToString();
+            }
+            return pwd;
         }
     }
 }

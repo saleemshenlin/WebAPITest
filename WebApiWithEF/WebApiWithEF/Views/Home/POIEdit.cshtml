@@ -55,10 +55,10 @@
                 @Html.ValidationMessageFor(model => model.Address)
             </div>
 
-            <div class="editor-label">
+            <div id="time-label"  class="editor-label">
                 <label>开放时间</label>
             </div>
-            <div class="editor-field">
+            <div id="time-editor" class="editor-field">
                 <input type="text" data-bind="value: $data.Time" />
                 @Html.ValidationMessageFor(model => model.Time)
             </div>
@@ -214,24 +214,39 @@
                 }
                 switch (data.C_ID) {
                     case 1:
+                        $("#ticket-label label").text("门票");
                         $("#type-label").hide();
                         $("#type-editor").hide();
+                        $("#ticket-label").show();
+                        $("#ticket-editor").show();
+                        $("#time-label").show();
+                        $("#time-editor").show();
                         break;
                     case 2:
                         $("#ticket-label label").text("房价");
                         $("#type-label").show();
                         $("#type-editor").show();
+                        $("#ticket-label").show();
+                        $("#ticket-editor").show();
+                        $("#time-label").hide();
+                        $("#time-editor").hide();
                         break;
                     case 3:
                         $("#ticket-label label").text("人均消费");
                         $("#type-label").hide();
                         $("#type-editor").hide();
+                        $("#ticket-label").show();
+                        $("#ticket-editor").show();
+                        $("#time-label").show();
+                        $("#time-editor").show();
                         break;
                     case 4:
                         $("#type-label").hide();
                         $("#type-editor").hide();
                         $("#ticket-label").hide();
                         $("#ticket-editor").hide();
+                        $("#time-label").show();
+                        $("#time-editor").show();
                         break;
                 }
             });

@@ -32,7 +32,7 @@ namespace WebApiWithEF.Controllers
         [Queryable]
         public IQueryable<POI> GetPOIOData()
         {
-            return db.POIs;
+            return db.POIs.Where(c => c.Status == 1);
         }
 
         // GET odata/POIOData(5)
