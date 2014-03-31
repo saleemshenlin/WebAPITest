@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Http;
 using WebApiWithEF.Models;
 using WebApiWithEF.DAL;
+using WebApi.OutputCache.V2;
 
 namespace WebApiWithEF.Controllers
 {
@@ -19,6 +20,8 @@ namespace WebApiWithEF.Controllers
 
         // GET api/POI
         // .Skip((1 - 1) * 5).Take(5) 分页
+        // 使用Strathweb.CacheOutput.WebApi2 缓存机制
+        //[CacheOutput(ClientTimeSpan = 100, ServerTimeSpan = 100)]
         public IEnumerable<POI> GetPOI()
         {
             IEnumerable<POI> pois = db.POIs.SqlQuery("select * from POI where Status = 1 order by Updated desc").AsEnumerable();
@@ -28,6 +31,8 @@ namespace WebApiWithEF.Controllers
         // GET api/POI?type=type
         // 根据类型获取pois
         //[Route("api/poitype/{id}")]
+        // 使用Strathweb.CacheOutput.WebApi2 缓存机制
+        [CacheOutput(ClientTimeSpan = 100, ServerTimeSpan = 100)]
         public IEnumerable<POI> GetPOIByType(Int32 type)
         {
             IEnumerable<POI> pois = db.POIs.SqlQuery("select * from POI where Status = 1 and C_ID = " + type + " order by Updated desc").AsEnumerable();
@@ -35,6 +40,8 @@ namespace WebApiWithEF.Controllers
         }
 
         // GET api/POI/5
+        // 使用Strathweb.CacheOutput.WebApi2 缓存机制
+        [CacheOutput(ClientTimeSpan = 100, ServerTimeSpan = 100)]
         public POI GetPOI(int id)
         {
             POI poi = db.POIs.Find(id);

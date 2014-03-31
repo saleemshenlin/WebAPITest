@@ -11,6 +11,14 @@ namespace WebApiWithEF
     {
         public static void Register(HttpConfiguration config)
         {
+            //Configure HTTP Caching using Entity Tags (ETags)
+            var connString = System.Configuration.ConfigurationManager.ConnectionStrings["POIContext"].ConnectionString;
+            var eTagStore = new CacheCow.Server.EntityTagStore.SqlServer.SqlServerEntityTagStore(connString);
+            var cacheCowCacheHandler = new CacheCow.Server.CachingHandler(eTagStore);
+            cacheCowCacheHandler.AddLastModifiedHeader = false;
+            config.MessageHandlers.Add(cacheCowCacheHandler);
+            //var cacheCowCacheHandler = new CacheCow.Server.CachingHandler();
+            //config.MessageHandlers.Add(cacheCowCacheHandler);
             // Attribute routing.
             //config.MapHttpAttributeRoutes();
             // Convention-based routing.
