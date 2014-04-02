@@ -13,28 +13,49 @@ using System.Web.Mvc;
 
 namespace WebApiWithEF.Controllers
 {
+    /// <summary>
+    /// WebAPI后台管理Controller
+    /// 通过调用Web API管理poi的增删查改
+    /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// 后台管理首页
+        /// </summary>
+        /// <returns>页面</returns>
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to 旅游数据管理";
 
             return View();
         }
-
+        /// <summary>
+        /// 后台管理关于页(无实用)
+        /// </summary>
+        /// <returns>页面</returns>
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
 
             return View();
         }
-
+        /// <summary>
+        /// 后台管理联系页(无实用)
+        /// </summary>
+        /// <returns>页面</returns>
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
+        /// <summary>
+        /// 后台管理poi列表页
+        /// 包括增删查改poi
+        /// </summary>
+        /// <remarks>参数apiUri：绑定API的Url，绑定到页面供js调用</remarks>
+        /// <remarks>参数odataApiUri：oData Url暂时无使用</remarks>
+        /// <returns>页面</returns>
         public ActionResult POIManage()
         {
             //绑定API的Url
@@ -45,6 +66,12 @@ namespace WebApiWithEF.Controllers
 
             return View();
         }
+        /// <summary>
+        /// 后台管理poi新增页
+        /// 新建poi
+        /// </summary>
+        /// <remarks>参数apiUri：绑定API的Url，绑定到页面供js调用</remarks>
+        /// <returns>页面</returns>
         public ActionResult POICreate()
         {
             //绑定API的Url
@@ -53,7 +80,13 @@ namespace WebApiWithEF.Controllers
 
             return View();
         }
-
+        /// <summary>
+        /// 后台管理poi编辑页
+        /// 编辑已有信息
+        /// </summary>
+        /// <remarks>参数apiUri：绑定API的Url，绑定到页面供js调用</remarks>
+        /// <remarks>需要传入poi的id，以便前端调用api查询</remarks>
+        /// <returns>页面</returns>
         public ActionResult POIEdit()
         {
             //绑定API的Url
@@ -67,8 +100,12 @@ namespace WebApiWithEF.Controllers
         /// <summary>
         /// 上传图片
         /// </summary>
-        /// <param name="upImg"></param>
-        /// <returns></returns>
+        /// <param name="upImg">上传图片</param>
+        /// <remarks>上传图片宽度大于720px，并且高度大于540px</remarks>
+        /// <remarks>没有超过尺寸直接退回</remarks>
+        /// <remarks>超过尺寸对图进行切割720*540</remarks>
+        /// <remarks>保存到"~/Update/"</remarks>
+        /// <returns>json格式的图片链接</returns>
         [HttpPost]
         public JsonResult Upload(HttpPostedFileBase upImg)
         {
@@ -119,8 +156,12 @@ namespace WebApiWithEF.Controllers
                 error = error
             });
         }
-
-        private string MD5Create(string STR) //STR为待加密的string
+        /// <summary>
+        /// 为图片的名称进行MD5加密
+        /// </summary>
+        /// <param name="STR">为待加密的string</param>
+        /// <returns>加密的图片名称</returns>
+        private string MD5Create(string STR)
         {
             string pwd = "";
             //pwd为加密结果

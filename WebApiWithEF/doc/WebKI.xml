@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="About method" Url="html/4a8f39f7-6483-63de-292e-5aff81d505ae.htm" />
+  <HelpKINode Title="Abstract property" Url="html/4917331b-ab5c-52e6-ef20-1ab88dd6c0aa.htm" />
+  <HelpKINode Title="Address property" Url="html/ea7c3077-9533-9a68-1bc8-5c6283ceff6a.htm" />
+  <HelpKINode Title="Contact method" Url="html/24ae88d4-6f0c-101a-9ee0-6d60cddd2fa0.htm" />
+  <HelpKINode Title="Created property" Url="html/64f5a2e1-cadb-ef49-f8b8-1a9d9111f7c0.htm" />
+  <HelpKINode Title="C_ID property" Url="html/b861a2f4-43ef-ef3b-9cde-1656eaf0376a.htm" />
+  <HelpKINode Title="db field" Url="html/8df37ac1-dcb1-bd8b-aa22-0512f173328d.htm" />
+  <HelpKINode Title="DeletePOI method" Url="html/79dd2254-6e6a-8e7a-f040-e1e169ae1a06.htm" />
+  <HelpKINode Title="Dispose method" Url="html/33d1cb6a-b41d-5673-f2d6-573f4501cf15.htm" />
+  <HelpKINode Title="D_Name property" Url="html/00ccec76-2536-119f-31fc-b5495f5e9265.htm" />
+  <HelpKINode Title="Geometry property" Url="html/adcb81cc-07cf-bf1f-520c-1f93710d6e8a.htm" />
+  <HelpKINode Title="GetPOI method" Url="html/91379857-76b0-df2d-0c08-589024b45e46.htm" />
+  <HelpKINode Title="HomeController class">
+    <HelpKINode Title="HomeController Class" Url="html/fce9f0fa-0746-0f43-5eed-3455d77b04ff.htm" />
+    <HelpKINode Title="about HomeController class" Url="html/fce9f0fa-0746-0f43-5eed-3455d77b04ff.htm" />
+    <HelpKINode Title="constructor" Url="html/0ea265e4-ed5b-d4d6-88cd-522e72ed9da4.htm" />
+    <HelpKINode Title="methods" Url="html/f0d05ecd-6b8b-27a1-fa03-08d63bf9e3a7.htm" />
+  </HelpKINode>
+  <HelpKINode Title="HomeController.About method" Url="html/4a8f39f7-6483-63de-292e-5aff81d505ae.htm" />
+  <HelpKINode Title="HomeController.Contact method" Url="html/24ae88d4-6f0c-101a-9ee0-6d60cddd2fa0.htm" />
+  <HelpKINode Title="HomeController.HomeController constructor" Url="html/0ea265e4-ed5b-d4d6-88cd-522e72ed9da4.htm" />
+  <HelpKINode Title="HomeController.Index method" Url="html/ec726c11-9824-64e2-38c5-f72d0172f8f2.htm" />
+  <HelpKINode Title="HomeController.MD5Create method" Url="html/2b3f2695-234e-ea95-a341-16b44e86bfca.htm" />
+  <HelpKINode Title="HomeController.POICreate method" Url="html/7ca54801-b4e4-f424-5167-e31883f590f1.htm" />
+  <HelpKINode Title="HomeController.POIEdit method" Url="html/11aec6eb-eaf2-7954-ac50-74f024df8f62.htm" />
+  <HelpKINode Title="HomeController.POIManage method" Url="html/6df2f90a-ca97-96ca-abc6-a0959de1a78e.htm" />
+  <HelpKINode Title="HomeController.Upload method" Url="html/ee99396d-46cf-51dc-1938-83f93d31f214.htm" />
+  <HelpKINode Title="Id property" Url="html/7452d2c7-8e5b-d7bd-366d-fe6d59346c09.htm" />
+  <HelpKINode Title="ImgUrl property" Url="html/4af6f5a7-4ccd-f57c-7317-7b35f1a93b51.htm" />
+  <HelpKINode Title="Index method" Url="html/ec726c11-9824-64e2-38c5-f72d0172f8f2.htm" />
+  <HelpKINode Title="MD5Create method" Url="html/2b3f2695-234e-ea95-a341-16b44e86bfca.htm" />
+  <HelpKINode Title="Name property" Url="html/ade90418-639a-2ede-7f34-870539b2a009.htm" />
+  <HelpKINode Title="OnModelCreating method" Url="html/69e2783e-be11-f0d2-f967-4dd826d5f64b.htm" />
+  <HelpKINode Title="POI class">
+    <HelpKINode Title="POI Class" Url="html/409d7d40-2e27-7764-61b4-17893bf2ba8f.htm" />
+    <HelpKINode Title="about POI class" Url="html/409d7d40-2e27-7764-61b4-17893bf2ba8f.htm" />
+    <HelpKINode Title="constructor" Url="html/6c4db2da-d459-c099-7496-212d5b6cd2a5.htm" />
+    <HelpKINode Title="properties" Url="html/feaec49b-0f1d-17f7-0fe2-d04868273339.htm" />
+  </HelpKINode>
+  <HelpKINode Title="POI.Abstract property" Url="html/4917331b-ab5c-52e6-ef20-1ab88dd6c0aa.htm" />
+  <HelpKINode Title="POI.Address property" Url="html/ea7c3077-9533-9a68-1bc8-5c6283ceff6a.htm" />
+  <HelpKINode Title="POI.Created property" Url="html/64f5a2e1-cadb-ef49-f8b8-1a9d9111f7c0.htm" />
+  <HelpKINode Title="POI.C_ID property" Url="html/b861a2f4-43ef-ef3b-9cde-1656eaf0376a.htm" />
+  <HelpKINode Title="POI.D_Name property" Url="html/00ccec76-2536-119f-31fc-b5495f5e9265.htm" />
+  <HelpKINode Title="POI.Geometry property" Url="html/adcb81cc-07cf-bf1f-520c-1f93710d6e8a.htm" />
+  <HelpKINode Title="POI.Id property" Url="html/7452d2c7-8e5b-d7bd-366d-fe6d59346c09.htm" />
+  <HelpKINode Title="POI.ImgUrl property" Url="html/4af6f5a7-4ccd-f57c-7317-7b35f1a93b51.htm" />
+  <HelpKINode Title="POI.Name property" Url="html/ade90418-639a-2ede-7f34-870539b2a009.htm" />
+  <HelpKINode Title="POI.POI constructor" Url="html/6c4db2da-d459-c099-7496-212d5b6cd2a5.htm" />
+  <HelpKINode Title="POI.Status property" Url="html/9ac21207-2c8f-84fc-8371-0053ac8ec9ed.htm" />
+  <HelpKINode Title="POI.Tele property" Url="html/4c413604-a9cb-e3bb-df4d-c497b3826de6.htm" />
+  <HelpKINode Title="POI.Ticket property" Url="html/96305859-343c-0615-8b97-087ec7cb8986.htm" />
+  <HelpKINode Title="POI.Time property" Url="html/1faa3618-e1be-0ceb-6427-12e80b4863a2.htm" />
+  <HelpKINode Title="POI.Type property" Url="html/229b7498-82ed-8e7b-8719-bc1788246d21.htm" />
+  <HelpKINode Title="POI.Updated property" Url="html/a2798bf9-103a-e70b-7641-6261918c61da.htm" />
+  <HelpKINode Title="POIContext class">
+    <HelpKINode Title="POIContext Class" Url="html/c904caec-08ee-0671-5c3c-dc6f08f0e640.htm" />
+    <HelpKINode Title="about POIContext class" Url="html/c904caec-08ee-0671-5c3c-dc6f08f0e640.htm" />
+    <HelpKINode Title="constructor" Url="html/38221de1-9b4d-d979-9dfe-29a49dc10dbd.htm" />
+    <HelpKINode Title="methods" Url="html/23f95cbc-9872-99f7-6232-6e1e510176df.htm" />
+    <HelpKINode Title="properties" Url="html/9d17857e-7fa9-387a-5212-fb4b83aff0b7.htm" />
+  </HelpKINode>
+  <HelpKINode Title="POIContext.OnModelCreating method" Url="html/69e2783e-be11-f0d2-f967-4dd826d5f64b.htm" />
+  <HelpKINode Title="POIContext.POIContext constructor" Url="html/38221de1-9b4d-d979-9dfe-29a49dc10dbd.htm" />
+  <HelpKINode Title="POIContext.POIs property" Url="html/ea4f532a-d173-0b74-35fd-5bbcdfc053bd.htm" />
+  <HelpKINode Title="POIController class">
+    <HelpKINode Title="POIController Class" Url="html/7101ab96-fe5c-8910-8222-b3c550f74f27.htm" />
+    <HelpKINode Title="about POIController class" Url="html/7101ab96-fe5c-8910-8222-b3c550f74f27.htm" />
+    <HelpKINode Title="constructor" Url="html/68ff97f1-98db-4c35-8ddb-12e67ebc5e1f.htm" />
+    <HelpKINode Title="fields" Url="html/2f79d6d8-38ba-bb1f-4d75-432e780672f3.htm" />
+    <HelpKINode Title="methods" Url="html/946237f8-fdc7-43a4-d70f-c8fc7072b213.htm" />
+  </HelpKINode>
+  <HelpKINode Title="POIController.db field" Url="html/8df37ac1-dcb1-bd8b-aa22-0512f173328d.htm" />
+  <HelpKINode Title="POIController.DeletePOI method" Url="html/79dd2254-6e6a-8e7a-f040-e1e169ae1a06.htm" />
+  <HelpKINode Title="POIController.Dispose method" Url="html/33d1cb6a-b41d-5673-f2d6-573f4501cf15.htm" />
+  <HelpKINode Title="POIController.GetPOI method" Url="html/91379857-76b0-df2d-0c08-589024b45e46.htm" />
+  <HelpKINode Title="POIController.POIController constructor" Url="html/68ff97f1-98db-4c35-8ddb-12e67ebc5e1f.htm" />
+  <HelpKINode Title="POIController.PostPOI method" Url="html/220d6dc3-349c-a3d3-3579-bbd35d03c851.htm" />
+  <HelpKINode Title="POIController.PutPOI method" Url="html/c9fc0db5-0e96-edd6-afca-6e8b1ccc124e.htm" />
+  <HelpKINode Title="POICreate method" Url="html/7ca54801-b4e4-f424-5167-e31883f590f1.htm" />
+  <HelpKINode Title="POIEdit method" Url="html/11aec6eb-eaf2-7954-ac50-74f024df8f62.htm" />
+  <HelpKINode Title="POIManage method" Url="html/6df2f90a-ca97-96ca-abc6-a0959de1a78e.htm" />
+  <HelpKINode Title="POIs property" Url="html/ea4f532a-d173-0b74-35fd-5bbcdfc053bd.htm" />
+  <HelpKINode Title="PostPOI method" Url="html/220d6dc3-349c-a3d3-3579-bbd35d03c851.htm" />
+  <HelpKINode Title="PutPOI method" Url="html/c9fc0db5-0e96-edd6-afca-6e8b1ccc124e.htm" />
+  <HelpKINode Title="Status property" Url="html/9ac21207-2c8f-84fc-8371-0053ac8ec9ed.htm" />
+  <HelpKINode Title="Tele property" Url="html/4c413604-a9cb-e3bb-df4d-c497b3826de6.htm" />
+  <HelpKINode Title="Ticket property" Url="html/96305859-343c-0615-8b97-087ec7cb8986.htm" />
+  <HelpKINode Title="Time property" Url="html/1faa3618-e1be-0ceb-6427-12e80b4863a2.htm" />
+  <HelpKINode Title="Type property" Url="html/229b7498-82ed-8e7b-8719-bc1788246d21.htm" />
+  <HelpKINode Title="Updated property" Url="html/a2798bf9-103a-e70b-7641-6261918c61da.htm" />
+  <HelpKINode Title="Upload method" Url="html/ee99396d-46cf-51dc-1938-83f93d31f214.htm" />
+  <HelpKINode Title="WebApiWithEF.Controllers namespace" Url="html/93e5e0bf-69ee-315e-60ac-a0180efa9a45.htm" />
+  <HelpKINode Title="WebApiWithEF.Controllers.HomeController class" Url="html/fce9f0fa-0746-0f43-5eed-3455d77b04ff.htm" />
+  <HelpKINode Title="WebApiWithEF.Controllers.POIController class" Url="html/7101ab96-fe5c-8910-8222-b3c550f74f27.htm" />
+  <HelpKINode Title="WebApiWithEF.DAL namespace" Url="html/a06e20f3-9e24-c81f-f273-e8bcd8412950.htm" />
+  <HelpKINode Title="WebApiWithEF.DAL.POIContext class" Url="html/c904caec-08ee-0671-5c3c-dc6f08f0e640.htm" />
+  <HelpKINode Title="WebApiWithEF.Models namespace" Url="html/7bcad167-d70c-4b5f-e0fd-1c1ecbaf8d3f.htm" />
+  <HelpKINode Title="WebApiWithEF.Models.POI class" Url="html/409d7d40-2e27-7764-61b4-17893bf2ba8f.htm" />
+</HelpKI>
